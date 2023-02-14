@@ -18,10 +18,28 @@ struct ContentView: View {
                     .background(.white)
                     .shadow(color: Color.black.opacity(0.05), radius: 5, x: 0, y: 5)
                 
-                Spacer()
-                
-                FooterView()
-                    .padding(.horizontal)
+                ScrollView(.vertical, showsIndicators: false, content: {
+                    VStack(spacing: 0){
+                        FeaturedTabView()
+                            .frame(height: UIScreen.main.bounds.width / 1.65)
+                            .padding(.vertical)
+                        
+                        CategoryGridView()
+                        
+                        TitleView(title: "Helmets")
+                        
+                        LazyVGrid(columns: gridLayout, spacing: 15, content: {
+                            ForEach(products) { product in
+                                ProductItemView(product: product)
+                            }
+                        })
+                        .padding(15)
+                        
+                        FooterView()
+                            .padding(.horizontal)
+                            .padding(.vertical)
+                    }//:VSTACK
+                })//:SCROLLVIEW
             }//:VSTACK
             .background(colorBackground.ignoresSafeArea(.all, edges: .all))
         }//:ZSTACK
